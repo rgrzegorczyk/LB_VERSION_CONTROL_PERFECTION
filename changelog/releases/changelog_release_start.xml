@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+<changeSet  author="${version_author}"  id="START_set_SqlCL_properties_${version_number}" failOnError="false" context="${version_number}" labels="${version_number}">
+    <validCheckSum>any</validCheckSum>  
+    <comment>Set SQlcl properties at START of  ${version_number} </comment>
+    <sql  dbms="oracle" 
+          stripComments="false"
+          endDelimiter="\n/">                
+    SET DEFINE off
+    rem Open log file
+    spool install_db.log
+    </sql>
+    <rollback>
+        SELECT 1 FROM DUAL;
+    </rollback>  
+    </changeSet>              
+
+<changeSet  author="${version_author}"  id="START_${version_number}" failOnError="true" runOnChange="true" context="${version_number}" labels="${version_number}">
+    <comment>Deployment start - ${version_number} </comment>
+    <sql  dbms="oracle" stripComments="false">                
+    Insert into APP_VERSION_LOGS(LOG_CODE, VERSION_NAME, SCRIPT_NAME) values ('VERSION_START','${version_number}','script_${version_number}');
+    </sql>
+    <rollback>
+        DELETE FROM APP_VERSION_LOGS WHERE VERSION_NAME='${version_number}' and LOG_CODE='VERSION_START';          
+    </rollback>  
+    </changeSet>   
+
+</databaseChangeLog>

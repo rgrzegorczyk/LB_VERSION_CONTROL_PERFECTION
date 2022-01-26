@@ -1,0 +1,15 @@
+--liquibase formatted sql
+--changeset liquibase:JOB_HISTORY_FK runOnChange:false context:liquibase_project_start labels:liquibase_project_start
+--comment initial changeset for JOB_HISTORY_FK
+--rollback SELECT 1 FROM DUAL
+--------------------------------------------------------
+--  Ref Constraints for Table JOB_HISTORY
+--------------------------------------------------------
+
+  ALTER TABLE "LB_VERSION_CONTROL_PERFECTION"."JOB_HISTORY" ADD CONSTRAINT "JHIST_DEPT_FK" FOREIGN KEY ("DEPARTMENT_ID")
+	  REFERENCES "LB_VERSION_CONTROL_PERFECTION"."DEPARTMENTS" ("DEPARTMENT_ID") ENABLE;
+  ALTER TABLE "LB_VERSION_CONTROL_PERFECTION"."JOB_HISTORY" ADD CONSTRAINT "JHIST_EMP_FK" FOREIGN KEY ("EMPLOYEE_ID")
+	  REFERENCES "LB_VERSION_CONTROL_PERFECTION"."EMPLOYEES" ("EMPLOYEE_ID") ENABLE;
+  ALTER TABLE "LB_VERSION_CONTROL_PERFECTION"."JOB_HISTORY" ADD CONSTRAINT "JHIST_JOB_FK" FOREIGN KEY ("JOB_ID")
+	  REFERENCES "LB_VERSION_CONTROL_PERFECTION"."JOBS" ("JOB_ID") ENABLE;
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">   
+
+<changeSet  author="${version_author}"  id="compile_invalid_objects_${version_number}" failOnError="true" context="${version_number}" labels="${version_number}">
+    <preConditions onFail="WARN" onFailMessage="Compile schema only if invalid objects exist" onSqlOutput="TEST">
+      <sqlCheck expectedResult="1">
+        select count(*)
+        from all_objects
+       where 1=1 
+         and owner IN ('LB_VERSION_CONTROL_PERFECTION')
+         and status = 'INVALID'
+         and rownum=1
+      </sqlCheck>
+  </preConditions>  
+  <comment>Compile invalid objects script</comment>
+      <sqlFile  dbms="oracle"
+                encoding="UTF-8"
+                endDelimiter="\n/"
+                path="database/dba/scripts/compile_invalid.sql"
+                stripComments="false"/>
+              <rollback>
+                  SELECT 1 FROM DUAL;
+              </rollback>  
+  </changeSet>  
+
+
+<changeSet  author="${version_author}"  id="END_${version_number}" failOnError="false" runOnChange="true" context="${version_number}" labels="${version_number}"> 
+    <comment>Deployment end - ${version_number} </comment>
+    <sql  dbms="oracle"
+          stripComments="false">
+Insert into APP_VERSION_LOGS(LOG_CODE, VERSION_NAME, SCRIPT_NAME) values ('VERSION_END', '${version_number}','script_${version_number}');
+    </sql>
+    <rollback>
+DELETE FROM APP_VERSION_LOGS  WHERE VERSION_NAME='${version_number}' and LOG_CODE='VERSION_END';
+    </rollback>  
+</changeSet>  
+
+<changeSet  author="${version_author}"  id="END_set_SqlCL_properties_${version_number}" failOnError="false" context="${version_number}" labels="${version_number}">
+    <comment>Set SQlcl properties at END of  ${version_number} </comment>
+    <sql  dbms="oracle" stripComments="false">
+    -- Release Database Lock
+    UPDATE SC_CORE.DATABASECHANGELOGLOCK SET LOCKED = 0, LOCKEDBY = NULL, LOCKGRANTED = NULL WHERE ID = 1;
+    commit;
+    
+    prompt .
+    prompt END
+    spool off;
+    prompt ...Deployment log written into install_db.log file
+    /                   
+    </sql>
+                    
+    <rollback>
+        SELECT 1 FROM DUAL;
+    </rollback>  
+    </changeSet>    
+                                                                                  
+</databaseChangeLog>

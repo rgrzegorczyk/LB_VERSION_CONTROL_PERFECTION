@@ -1,0 +1,15 @@
+--liquibase formatted sql
+--changeset liquibase:EMPLOYEES_FK runOnChange:false context:liquibase_project_start labels:liquibase_project_start
+--comment initial changeset for EMPLOYEES_FK
+--rollback SELECT 1 FROM DUAL
+--------------------------------------------------------
+--  Ref Constraints for Table EMPLOYEES
+--------------------------------------------------------
+
+  ALTER TABLE "LB_VERSION_CONTROL_PERFECTION"."EMPLOYEES" ADD CONSTRAINT "EMP_DEPT_FK" FOREIGN KEY ("DEPARTMENT_ID")
+	  REFERENCES "LB_VERSION_CONTROL_PERFECTION"."DEPARTMENTS" ("DEPARTMENT_ID") ENABLE;
+  ALTER TABLE "LB_VERSION_CONTROL_PERFECTION"."EMPLOYEES" ADD CONSTRAINT "EMP_JOB_FK" FOREIGN KEY ("JOB_ID")
+	  REFERENCES "LB_VERSION_CONTROL_PERFECTION"."JOBS" ("JOB_ID") ENABLE;
+  ALTER TABLE "LB_VERSION_CONTROL_PERFECTION"."EMPLOYEES" ADD CONSTRAINT "EMP_MANAGER_FK" FOREIGN KEY ("MANAGER_ID")
+	  REFERENCES "LB_VERSION_CONTROL_PERFECTION"."EMPLOYEES" ("EMPLOYEE_ID") ENABLE;
+

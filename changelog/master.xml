@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd"> 
+
+            <!-- change value ONLY when creating new version -->
+            <property  name="version_number"  value="version_4"/>
+            <property  name="version_author"  value="rgrzegorczyk"/>
+
+            <include file="/changelog/releases/changelog_release_start.xml" />            
+            <include file="/changelog/1_table.xml" />
+            <include file="/changelog/2_ref_constraints.xml"/>
+            <include file="/changelog/3_co_existing_objects.xml" />
+            <include file="/changelog/4_replaceable.xml"/>  
+            <include file="/changelog/releases/changelog_release_end.xml" />                
+</databaseChangeLog>

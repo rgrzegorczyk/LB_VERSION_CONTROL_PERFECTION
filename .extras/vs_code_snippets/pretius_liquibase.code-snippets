@@ -1,0 +1,21 @@
+
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	{
+		"replaceable":{
+			 "prefix":"lb_replaceable_changeset",
+			 "body":"--liquibase formatted sql\r--changeset rgrzegorczyk:$1${TM_FILENAME_BASE} stripComments:false context:$2PROJECT_OR_VERSION_NAME labels:TASK_NO$3 runOnChange:true\r--comment Add comment describing your change$4\r\n\r\n $5/* YOUR REPLACEABLE OBJECT SQL */\r\n\r\n --rollback $5TYPE YOUR ROLLBACK IF POSSIBLE OR TYPE SELECT 1 FROM DUAL;",
+			 "description":"",
+			 "scope":""
+		},
+		"NON_replaceable":{
+			 "prefix":"lb_NON_replaceable_changeset",
+			 "body":"--liquibase formatted sql\r--changeset rgrzegorczyk:$1TYPE_UNIQUE_ID_OF_CHANGE stripComments:false context:$2PROJECT_OR_VERSION_NAME labels:TASK_NO$3 \r--comment Add comment describing your change$4 \r\n\r\n $5/*TYPE YOUR SQL CHANGE  */\r\n\r\n--rollback $6TYPE YOUR ROLLBACK IF POSSIBLE OR TYPE SELECT 1 FROM DUAL ;",
+			 "description":"",
+			 "scope":""
+		}
+ }
