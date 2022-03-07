@@ -1,4 +1,6 @@
-## This repository was created to help you get through my new blog post about versioning Oracle Database using LIquibase Community Edition.
+## This repository was created to help you get through my new blog post about versioning Oracle Database using Liquibase Community Edition.
+
+https://pretius.com/blog/liquibase-database-version-control/
 
   # Folders description:
 
